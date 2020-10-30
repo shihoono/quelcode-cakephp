@@ -204,3 +204,5 @@ Type::build('timestamp')
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
 \App\Application::addPlugin('Migrations');
+
+$this->addPlugin('Migrations');
