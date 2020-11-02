@@ -6,7 +6,7 @@
 		echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
 		echo '<p><strong>USER: ' . $authuser['username'] . '</strong></p>';
 		echo $this->Form->control('name');
-		echo $this->Form->control('description');
+		echo $this->Form->control('description',['type' => 'textarea']);
 		echo $this->Form->control('picture_name');
 		echo $this->Form->hidden('finished', ['value' => 0]);
 		echo $this->Form->control('endtime');
