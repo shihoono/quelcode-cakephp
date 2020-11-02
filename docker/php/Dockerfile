@@ -6,7 +6,7 @@ ARG DOCKER_USER=docker
 ARG DOCKER_PASSWORD=docker
 
 # composerをインストールする
-RUN curl -s https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --version=1.10.15 && mv composer.phar /usr/local/bin/composer
 
 # Node.jsをダウンロードする
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
