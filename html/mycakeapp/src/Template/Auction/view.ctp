@@ -13,6 +13,10 @@
 	<td><?= h($biditem->description) ?></td>
 </tr>
 <tr>
+	<th scope="row">商品画像</th>
+	<td><?= $this->Html->image('auction/'.$biditem['picture_name'], array('width'=>'200', 'height'=>'140', 'alt'=>'商品画像')) ?></td>
+</tr>
+<tr>
 	<th scope="row">商品ID</th>
 	<td><?= $this->Number->format($biditem->id) ?></td>
 </tr>
