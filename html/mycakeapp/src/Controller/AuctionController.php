@@ -86,10 +86,52 @@ class AuctionController extends AuctionBaseController
 		$biditem = $this->Biditems->newEntity();
 		// POST送信時の処理
 		if ($this->request->is('post')) {
+			
 			// $biditemにフォームの送信内容を反映
 			$biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
+			$biditem->picture_name = $this->request->data['picture_name']['name'];
+			print_r($biditem);
 			// $biditemを保存する
 			if ($this->Biditems->save($biditem)) {
+
+				// if(!empty($this->request->data['Biditem']['picture_name']['name'])){
+					$directoryPath = '../webroot/img/auction/';
+					$tmpFileName = $this->request->data['picture_name']['tmp_name'];
+					$fileName = $this->request->data['picture_name']['name'];
+					$extension = pathinfo($this->request->data['picture_name']['name'], PATHINFO_EXTENSION);
+					$id = $biditem->id; 
+					$newImageFileName = "$id.$extension";
+					$uploadFile = $directoryPath . $newImageFileName;
+					echo ($tmpFileName);
+					echo ($uploadFile);
+					if(move_uploaded_file($tmpFileName, $uploadFile)){
+						$biditem->picture_name = $newImageFileName;
+						$this->Biditems->save($biditem);
+					}
+				// }
+
+				// if(!empty($this->request->data['picture_name']['name'])){
+				// $fileName = $this->request->data['picture_name']['name'];
+				// $filePath = '../webroot/img/auction/';
+				// $uploadFile = $filePath.$fileName;
+				// if(move_uploaded_file($this->request->data['picture_name']['tmp_name'], $uploadFile))
+				// {
+				// 	$this->request->data['picture_name'] = $uploadFile;
+				// }
+			    // }
+
+				// if(!empty($this->request->data['Biditem']['picture_name']['name'])){
+				// 	$ext = pathinfo($this->request->data['Biditem']['picture_name']['name'], PATHINFO_EXTENSION);
+				// 	$fileName = $biditem['id'].$ext;
+				// 	$filePath = '../webroot/img/auction/';
+				// 	$uploadFile = $filePath.$fileName;
+				// 	if(move_uploaded_file($this->request->data['Biditem']['picture_name']['tmp_name'], $uploadFile))
+				// 	{
+				// 		$this->request->data['Biditem']['picture_name'] = $uploadFile;
+				// 	}
+
+				// }
+				
 				// 成功時のメッセージ
 				$this->Flash->success(__('保存しました。'));
 				// トップページ（index）に移動
