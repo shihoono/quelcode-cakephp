@@ -119,30 +119,28 @@ class BiditemsTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         $rules->add(
-            function($Biditem){
+            function($Biditem, $options){
                 if($Biditem['picture_name'] != ''){
                     $fileData = pathinfo($Biditem['picture_name']);
-                    print_r($fileData);
                     $extension = $fileData['extension'];
-                    $allowExtension = array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF');
-
-                    if(in_array($extension, $allowExtension, true)){
-                        echo ('a');
+                    $allowExtensions = array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF');
+                    if(in_array($extension, $allowExtensions, true)){
                         $return = true;
                     } else {
-                        echo ('b');
                         $return = false;
                     }
                 } else {
-                    echo ('c');
                     $return = false;
                 }
+                return $return;
             },
             'extension',
             [
+                'errorField' => 'picture_name',
                 'message' => 'この画像ファイルは無効です。jpg, jpeg, pngもしくは gifファイルをアップロードしてください。',
             ]
         );
+        
         return $rules;
     }
 }
