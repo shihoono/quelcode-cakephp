@@ -116,11 +116,7 @@ class BiditemsTable extends Table
                     $extension = $fileData['extension'] ?? '';
                     $lowerCaseConversion = strtolower($extension);
                     $allowExtensions = array('jpg', 'jpeg', 'png', 'gif');
-                    if(in_array($lowerCaseConversion, $allowExtensions, true)){
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return in_array($lowerCaseConversion, $allowExtensions, true);
                 } else {
                     return false;
                 }
