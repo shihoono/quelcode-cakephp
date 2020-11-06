@@ -74,6 +74,18 @@ class BiditemsTable extends Table
             ->notEmptyString('name');
 
         $validator
+            ->scalar('description')
+            ->maxLength('description', 1000)
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
+
+        $validator
+            ->scalar('picture_name')
+            ->maxLength('picture_name', 255)
+            ->requirePresence('picture_name', 'create')
+            ->notEmptyString('picture_name');
+
+        $validator
             ->boolean('finished')
             ->requirePresence('finished', 'create')
             ->notEmptyString('finished');
@@ -97,6 +109,25 @@ class BiditemsTable extends Table
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
+        $rules->add(
+            function($Biditem, $options){
+                if($Biditem['picture_name'] != ''){
+                    $fileData = pathinfo($Biditem['picture_name']);
+                    $extension = $fileData['extension'] ?? '';
+                    $lowerCaseConversion = strtolower($extension);
+                    $allowExtensions = array('jpg', 'jpeg', 'png', 'gif');
+                    return in_array($lowerCaseConversion, $allowExtensions, true);
+                } else {
+                    return false;
+                }
+            },
+            'extension',
+            [
+                'errorField' => 'picture_name',
+                'message' => 'この画像ファイルは無効です。jpg, jpeg, pngもしくは gifファイルをアップロードしてください。',
+            ]
+        );
+        
         return $rules;
     }
 }

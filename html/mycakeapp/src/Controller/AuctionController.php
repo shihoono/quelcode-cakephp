@@ -86,14 +86,29 @@ class AuctionController extends AuctionBaseController
 		$biditem = $this->Biditems->newEntity();
 		// POST送信時の処理
 		if ($this->request->is('post')) {
+			
 			// $biditemにフォームの送信内容を反映
 			$biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
+			$biditem->picture_name = $this->request->data['picture_name']['name'];
+
 			// $biditemを保存する
 			if ($this->Biditems->save($biditem)) {
-				// 成功時のメッセージ
-				$this->Flash->success(__('保存しました。'));
-				// トップページ（index）に移動
-				return $this->redirect(['action' => 'index']);
+				$directoryPath = realpath(WWW_ROOT .'/img/auction/');
+				$tmpFileName = $this->request->data['picture_name']['tmp_name'];
+				$fileName = $this->request->data['picture_name']['name'];
+				$extension = pathinfo($this->request->data['picture_name']['name'], PATHINFO_EXTENSION);
+				$id = $biditem->id; 
+				$newImageFileName = "$id.$extension";
+				$uploadFile = $directoryPath . '/' . $newImageFileName; //realpathの影響で末尾のスラッシュが削除されるので、スラッシュ追加
+				if(move_uploaded_file($tmpFileName, $uploadFile)){
+					$biditem->picture_name = $newImageFileName;
+					if($this->Biditems->save($biditem)){
+						// 成功時のメッセージ
+						$this->Flash->success(__('保存しました。'));
+						// トップページ（index）に移動
+						return $this->redirect(['action' => 'index']);
+					};
+				}
 			}
 			// 失敗時のメッセージ
 			$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
