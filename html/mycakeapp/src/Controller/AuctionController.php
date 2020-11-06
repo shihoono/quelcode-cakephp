@@ -102,7 +102,12 @@ class AuctionController extends AuctionBaseController
 					$uploadFile = $directoryPath . '/' . $newImageFileName; //realpathの影響で末尾のスラッシュが削除されるので、スラッシュ追加
 					if(move_uploaded_file($tmpFileName, $uploadFile)){
 						$biditem->picture_name = $newImageFileName;
-						$this->Biditems->save($biditem);
+						if($this->Biditems->save($biditem)){
+							// 成功時のメッセージ
+							$this->Flash->success(__('保存しました。'));
+							// トップページ（index）に移動
+							return $this->redirect(['action' => 'index']);
+						};
 					}
 				
 				// 成功時のメッセージ
