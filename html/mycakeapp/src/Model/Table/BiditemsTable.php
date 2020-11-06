@@ -117,14 +117,13 @@ class BiditemsTable extends Table
                     $lowerCaseConversion = strtolower($extension);
                     $allowExtensions = array('jpg', 'jpeg', 'png', 'gif');
                     if(in_array($lowerCaseConversion, $allowExtensions, true)){
-                        $return = true;
+                        return true;
                     } else {
-                        $return = false;
+                        return false;
                     }
                 } else {
-                    $return = false;
+                    return false;
                 }
-                return $return;
             },
             'extension',
             [
