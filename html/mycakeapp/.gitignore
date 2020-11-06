@@ -40,5 +40,6 @@ nbproject/*
 # Sass preprocessor
 .sass-cache/
 
-auction/*
-!.gitkeep
+!/webroot/img/auction/
+/webroot/img/auction/*
+!/webroot/img/auction/.gitkeep
