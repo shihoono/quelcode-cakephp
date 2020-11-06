@@ -113,7 +113,7 @@ class BiditemsTable extends Table
             function($Biditem, $options){
                 if($Biditem['picture_name'] != ''){
                     $fileData = pathinfo($Biditem['picture_name']);
-                    $extension = $fileData['extension'];
+                    $extension = $fileData['extension'] ?? '';
                     $lowerCaseConversion = strtolower($extension);
                     $allowExtensions = array('jpg', 'jpeg', 'png', 'gif');
                     if(in_array($lowerCaseConversion, $allowExtensions, true)){
