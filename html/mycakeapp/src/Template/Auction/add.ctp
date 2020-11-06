@@ -9,6 +9,7 @@
 		echo $this->Form->control('description', ['type' => 'textarea']);
 		echo '商品画像';
 		echo $this->Form->file('picture_name', ['type' => 'file']);
+		echo $this->Form->error('picture_name');
 		echo $this->Form->hidden('finished', ['value' => 0]);
 		echo $this->Form->control('endtime');
 	?>
