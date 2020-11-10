@@ -6,7 +6,8 @@
 		<th scope="col"><?= $this->Paginator->sort('id') ?></th>
 		<th class="main" scope="col"><?= $this->Paginator->sort('name') ?></th>
 		<th scope="col"><?= $this->Paginator->sort('created') ?></th>
-		<th scope="col" class="actions"><?= __('Actions') ?></th>
+		<th scope="col" class="actions"><?= __('Messages') ?></th>
+		<th scope="col" class="actions"><?= __('Transaction') ?></th>
 	</tr>
 </thead>
 <tbody>
@@ -17,6 +18,9 @@
 		<td><?= h($info->created) ?></td>
 		<td class="actions">
 			<?= $this->Html->link(__('View'), ['action' => 'msg', $info->id]) ?>
+		</td>
+		<td class="actions">
+			<?= $this->Html->link(__('View'), ['action' => 'afterBid', $info->id]) ?>
 		</td>
 	</tr>
 	<?php endforeach; ?>
