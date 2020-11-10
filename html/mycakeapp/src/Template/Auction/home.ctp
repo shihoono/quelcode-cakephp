@@ -20,7 +20,7 @@
 			<?= $this->Html->link(__('View'), ['action' => 'msg', $info->id]) ?>
 		</td>
 		<td class="actions">
-			<?= $this->Html->link(__('View'), ['action' => 'afterBid', $info->id]) ?>
+			<?= $this->Html->link(__('View'), ['action' => 'afterbid', $info->id]) ?>
 		</td>
 	</tr>
 	<?php endforeach; ?>
