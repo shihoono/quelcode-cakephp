@@ -23,7 +23,7 @@
 				</td>
 				<td class="actions">
 					<?php if (!empty($biditem->bidinfo)) : ?>
-						<?= $this->Html->link(__('View'), ['action' => 'afterBid', $biditem->bidinfo->id]) ?>
+						<?= $this->Html->link(__('View'), ['action' => 'afterbid', $biditem->bidinfo->id]) ?>
 					<?php endif; ?>
 				</td>
 			</tr>
