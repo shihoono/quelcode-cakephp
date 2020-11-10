@@ -2,3 +2,5 @@ docker/mysql/data
 phpmyadmin
 .env
 .vscode
+.DS_Store
+.DS_Store?
