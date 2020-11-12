@@ -91,9 +91,9 @@ class ReviewsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['reviewer_id'], 'Reviewers'));
-        $rules->add($rules->existsIn(['reviewee_id'], 'Reviewees'));
-        $rules->add($rules->existsIn(['bidinfo_id'], 'Bidinfos'));
+        $rules->add($rules->existsIn(['reviewer_id'], 'Users'));
+        $rules->add($rules->existsIn(['reviewee_id'], 'Users'));
+        $rules->add($rules->existsIn(['bidinfo_id'], 'Bidinfo'));
 
         return $rules;
     }
