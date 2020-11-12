@@ -32,6 +32,11 @@
             <td><?= h($bidinfo->bidder_phone_number) ?></td>
         </tr>
         </table>
+            <?php if ($authuser['id'] === $bidinfo->biditem->user_id): ?>
+                <?= $this->Form->create($bidinfo) ?>
+                <?php echo $this->Form->button('発送完了', ['name'=>'sent']); ?>
+                <?= $this->Form->end() ?>
+            <?php endif; ?>
         <?php endif; ?>
     <?php else: ?>
     <h2>*このページは表示できません。<h2>
