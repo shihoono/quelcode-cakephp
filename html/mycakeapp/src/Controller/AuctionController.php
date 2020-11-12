@@ -197,6 +197,15 @@ class AuctionController extends AuctionBaseController
 				$this->Bidinfo->save($bidinfo);
 			}
 		}
+
+		//受取完了ボタンが押された時
+		if($bidinfo->trading_status === 1 && $bidinfo->bidder_name !== null){
+			if(isset($_POST['received'])){
+				$bidinfo->trading_status = 2;
+				$this->Bidinfo->save($bidinfo);
+			}
+		}
+
 		$this->set(compact('bidinfo'));
 	}
 
