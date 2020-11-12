@@ -42,15 +42,15 @@ class ReviewsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Reviewers', [
+        $this->belongsTo('Users', [
             'foreignKey' => 'reviewer_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Reviewees', [
+        $this->belongsTo('Users', [
             'foreignKey' => 'reviewee_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Bidinfos', [
+        $this->belongsTo('Bidinfo', [
             'foreignKey' => 'bidinfo_id',
             'joinType' => 'INNER',
         ]);
