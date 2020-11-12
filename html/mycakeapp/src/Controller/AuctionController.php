@@ -86,7 +86,6 @@ class AuctionController extends AuctionBaseController
 		$biditem = $this->Biditems->newEntity();
 		// POST送信時の処理
 		if ($this->request->is('post')) {
-			
 			// $biditemにフォームの送信内容を反映
 			$biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
 			$biditem->picture_name = $this->request->data['picture_name']['name'];
@@ -171,6 +170,23 @@ class AuctionController extends AuctionBaseController
 			'contain' => ['Users'],
 			'order'=>['created'=>'desc']]);
 		$this->set(compact('bidmsgs', 'bidinfo', 'bidmsg'));
+	}
+
+	public function afterbid($bidinfo_id= null)
+	{
+		$bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain'=>['Biditems']]);
+
+		if($this->request->is(['post', 'put'])){
+			$bidinfo = $this->Bidinfo->patchEntity($bidinfo, $this->request->getData());
+			if($this->Bidinfo->save($bidinfo)){
+				$this->Flash->success(__('保存しました。'));
+				return $this->redirect(['action' => 'afterbid', $bidinfo->id]);
+			} else {
+				$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+			}
+		}
+
+		$this->set(compact('bidinfo'));
 	}
 
 	// 落札情報の表示
