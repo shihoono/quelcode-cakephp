@@ -176,16 +176,27 @@ class AuctionController extends AuctionBaseController
 	{
 		$bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain'=>['Biditems']]);
 
-		if($this->request->is(['post', 'put'])){
-			$bidinfo = $this->Bidinfo->patchEntity($bidinfo, $this->request->getData());
-			if($this->Bidinfo->save($bidinfo)){
-				$this->Flash->success(__('保存しました。'));
-				return $this->redirect(['action' => 'afterbid', $bidinfo->id]);
-			} else {
-				$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+		//発送情報が入力されたとき
+		if($bidinfo->trading_status === 0 && is_null($bidinfo->bidder_name)){
+			if($this->request->is(['post', 'put'])){
+				$bidinfo = $this->Bidinfo->patchEntity($bidinfo, $this->request->getData());
+				if($this->Bidinfo->save($bidinfo)){
+					$this->Flash->success(__('保存しました。'));
+					return $this->redirect(['action' => 'afterbid', $bidinfo->id]);
+				} else {
+					$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+					echo('B');
+				}
 			}
 		}
-
+		
+		//発送完了ボタンが押された時
+		if($bidinfo->trading_status === 0 && $bidinfo->bidder_name !== null){
+			if(isset($_POST['sent'])){
+				$bidinfo->trading_status = 1;
+				$this->Bidinfo->save($bidinfo);
+			}
+		}
 		$this->set(compact('bidinfo'));
 	}
 
