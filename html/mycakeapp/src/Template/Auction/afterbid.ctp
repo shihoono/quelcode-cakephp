@@ -1,11 +1,11 @@
 <?php if (!empty($bidinfo)): ?>
     <?php if ($authuser['id'] === $bidinfo->user_id || $authuser['id'] === $bidinfo->biditem->user_id): ?>
         <h2>「<?=$bidinfo->biditem->name ?>」</h2>
-        <h3>※取引画面</h3>
+        <h3>取引画面</h3>
         <?php if($authuser['id'] === $bidinfo->user_id && $bidinfo->trading_status === 0 && is_null($bidinfo->bidder_name)): ?>
             <?= $this->Form->create($bidinfo) ?>
             <fieldset>
-                <legend>※：発送先情報</legend>
+                <legend>発送先情報</legend>
                 <?php
                     // echo $this->Form->control('id', array('value' => $bidinfo->id, 'type'=>'hidden'));
                     echo $this->Form->control('bidder_name', ['label' => '宛先氏名']);
@@ -53,6 +53,7 @@
             <?php else:?>
                 <p><?='※商品受取済み' ?></p>
             <?php endif; ?>
+            <p><?='※取引が終了しました。評価ページから評価をお願いします' ?></p>
         <?php endif; ?>
     <?php else: ?>
     <h2>*このページは表示できません。<h2>
