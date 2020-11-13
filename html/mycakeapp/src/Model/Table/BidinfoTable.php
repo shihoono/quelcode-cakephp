@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\BiditemsTable&\Cake\ORM\Association\BelongsTo $Biditems
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\BidmessagesTable&\Cake\ORM\Association\HasMany $Bidmessages
+ * @property \App\Model\Table\ReviewsTable&\Cake\ORM\Association\HasMany $Reviews
  *
  * @method \App\Model\Entity\Bidinfo get($primaryKey, $options = [])
  * @method \App\Model\Entity\Bidinfo newEntity($data = null, array $options = [])
@@ -51,6 +52,9 @@ class BidinfoTable extends Table
             'joinType' => 'INNER',
         ]);
         $this->hasMany('Bidmessages', [
+            'foreignKey' => 'bidinfo_id',
+        ]);
+        $this->hasMany('Reviews', [
             'foreignKey' => 'bidinfo_id',
         ]);
     }
