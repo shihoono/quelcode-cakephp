@@ -7,7 +7,6 @@
             <fieldset>
                 <legend>発送先情報</legend>
                 <?php
-                    // echo $this->Form->control('id', array('value' => $bidinfo->id, 'type'=>'hidden'));
                     echo $this->Form->control('bidder_name', ['label' => '宛先氏名']);
                     echo $this->Form->control('bidder_address', ['label' => '住所']);
                     echo $this->Form->control('bidder_phone_number', ['label' => '電話番号']);
@@ -56,8 +55,8 @@
             <p><?='※取引が終了しました。評価ページから評価をお願いします' ?></p>
         <?php endif; ?>
     <?php else: ?>
-    <h2>*このページは表示できません。<h2>
+    <h2>このページは表示できません。<h2>
     <?php endif; ?>
 <?php else: ?>
-<h2>※落札情報はありません。</h2>
+<h2>落札情報はありません。</h2>
 <?php endif; ?>
