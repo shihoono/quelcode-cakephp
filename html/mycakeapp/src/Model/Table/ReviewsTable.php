@@ -9,9 +9,9 @@ use Cake\Validation\Validator;
 /**
  * Reviews Model
  *
- * @property \App\Model\Table\ReviewersTable&\Cake\ORM\Association\BelongsTo $Reviewers
- * @property \App\Model\Table\RevieweesTable&\Cake\ORM\Association\BelongsTo $Reviewees
- * @property \App\Model\Table\BidinfosTable&\Cake\ORM\Association\BelongsTo $Bidinfos
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Reviewers
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Reviewees
+ * @property \App\Model\Table\BidinfoTable&\Cake\ORM\Association\BelongsTo $Bidinfo
  *
  * @method \App\Model\Entity\Review get($primaryKey, $options = [])
  * @method \App\Model\Entity\Review newEntity($data = null, array $options = [])
@@ -69,9 +69,9 @@ class ReviewsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('rank')
-            ->requirePresence('rank', 'create')
-            ->notEmptyString('rank');
+            ->integer('rate')
+            ->requirePresence('rate', 'create')
+            ->notEmptyString('rate');
 
         $validator
             ->scalar('comment')
