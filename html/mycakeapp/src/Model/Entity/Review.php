@@ -10,12 +10,9 @@ use Cake\ORM\Entity;
  * @property int $reviewer_id
  * @property int $reviewee_id
  * @property int $bidinfo_id
- * @property int $rank
+ * @property int $rate
  * @property string $comment
  * @property \Cake\I18n\Time $created
- *
- * @property \App\Model\Entity\Reviewer $reviewer
- * @property \App\Model\Entity\Reviewee $reviewee
  * @property \App\Model\Entity\Bidinfo $bidinfo
  */
 class Review extends Entity
@@ -33,11 +30,11 @@ class Review extends Entity
         'reviewer_id' => true,
         'reviewee_id' => true,
         'bidinfo_id' => true,
-        'rank' => true,
+        'rate' => true,
         'comment' => true,
         'created' => true,
-        'reviewer' => true,
-        'reviewee' => true,
+        'biditem' => true,
+        'user' => true,
         'bidinfo' => true,
     ];
 }

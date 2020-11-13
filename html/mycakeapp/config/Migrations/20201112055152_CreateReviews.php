@@ -28,7 +28,7 @@ class CreateReviews extends AbstractMigration
             'limit' => 11,
             'null' => false,
         ]);
-        $table->addColumn('rank', 'integer', [
+        $table->addColumn('rate', 'integer', [
             'default' => null,
             'limit' => 1,
             'null' => false,
