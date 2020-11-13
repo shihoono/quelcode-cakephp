@@ -71,7 +71,10 @@ class ReviewsTable extends Table
         $validator
             ->integer('rate')
             ->requirePresence('rate', 'create')
-            ->notEmptyString('rate');
+            ->notEmptyString('rate')
+            ->add('rate','validvalue',[
+                'rule' => ['range', 1, 5]
+            ]);
 
         $validator
             ->scalar('comment')
