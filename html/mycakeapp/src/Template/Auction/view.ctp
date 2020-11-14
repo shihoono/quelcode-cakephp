@@ -2,7 +2,7 @@
 <table class="vertical-table">
 <tr>
 	<th class="small" scope="row">出品者</th>
-	<td><?= $biditem->has('user') ? $biditem->user->username : '' ?></td>
+	<td><?= $this->Html->link($biditem->has('user') ? $biditem->user->username : '',['controller'=>'Reviews', 'action'=>'view', $biditem->user_id]); ?></td>
 </tr>
 <tr>
 	<th scope="row">商品名</th>
