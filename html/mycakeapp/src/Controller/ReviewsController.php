@@ -20,14 +20,27 @@ class ReviewsController extends AuctionController
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    // public function view($id = null)
-    // {
-    //     $review = $this->Reviews->get($id, [
-    //         'contain' => ['Users', 'Bidinfo'],
-    //     ]);
+    public function view($id = null)
+    {
+        $reviews = $this->Reviews->find('all',[
+            'conditions'=>['reviewee_id'=> $id],
+            'order'=>['created'=>'desc']]);
 
-    //     $this->set('review', $review);
-    // }
+        $user = $this->Users->get($id);
+
+        $rate_avg = $this->getAvg($id);
+
+        $this->set(compact('reviews', 'user', 'rate_avg'));
+    }
+
+    private function getAvg($id)
+    {
+        $rate = $this->Reviews->find('all',[
+            'fields'=>['rate'],
+            'conditions'=>['reviewee_id'=>$id]]);
+        $rate_avg = collection($rate)->avg('rate');
+        return $rate_avg;      
+    }
 
     /**
      * Add method
