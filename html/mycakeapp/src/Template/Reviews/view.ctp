@@ -2,7 +2,7 @@
 <table class="vertical-table">
 <tr>
 	<th class="small" scope="row">評価平均</th>
-	<td><strong><?=$rate_avg?></strong></td>
+	<td><strong><?=round($rate_avg, 2)?></strong></td>
 </tr>
 </table>
 <table cellpadding="0" cellspacing="0">
