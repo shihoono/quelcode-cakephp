@@ -185,7 +185,6 @@ class AuctionController extends AuctionBaseController
 					return $this->redirect(['action' => 'afterbid', $bidinfo->id]);
 				} else {
 					$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
-					echo('B');
 				}
 			}
 		}
