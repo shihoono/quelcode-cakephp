@@ -174,37 +174,40 @@ class AuctionController extends AuctionBaseController
 
 	public function afterbid($bidinfo_id= null)
 	{
-		$bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain'=>['Biditems']]);
+		try{ 
+			$bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain'=>['Biditems']]);
 
-		//発送情報が入力されたとき
-		if($bidinfo->trading_status === 0 && is_null($bidinfo->bidder_name)){
-			if($this->request->is(['post', 'put'])){
-				$bidinfo = $this->Bidinfo->patchEntity($bidinfo, $this->request->getData());
-				if($this->Bidinfo->save($bidinfo)){
-					$this->Flash->success(__('保存しました。'));
-					return $this->redirect(['action' => 'afterbid', $bidinfo->id]);
-				} else {
-					$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+			//発送情報が入力されたとき
+			if($bidinfo->trading_status === 0 && is_null($bidinfo->bidder_name)){
+				if($this->request->is(['post', 'put'])){
+					$bidinfo = $this->Bidinfo->patchEntity($bidinfo, $this->request->getData());
+					if($this->Bidinfo->save($bidinfo)){
+						$this->Flash->success(__('保存しました。'));
+						return $this->redirect(['action' => 'afterbid', $bidinfo->id]);
+					} else {
+						$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+					}
 				}
 			}
-		}
-		
-		//発送完了ボタンが押された時
-		if($bidinfo->trading_status === 0 && $bidinfo->bidder_name !== null){
-			if(isset($_POST['sent'])){
-				$bidinfo->trading_status = 1;
-				$this->Bidinfo->save($bidinfo);
+			
+			//発送完了ボタンが押された時
+			if($bidinfo->trading_status === 0 && $bidinfo->bidder_name !== null){
+				if(isset($_POST['sent'])){
+					$bidinfo->trading_status = 1;
+					$this->Bidinfo->save($bidinfo);
+				}
 			}
-		}
 
-		//受取完了ボタンが押された時
-		if($bidinfo->trading_status === 1 && $bidinfo->bidder_name !== null){
-			if(isset($_POST['received'])){
-				$bidinfo->trading_status = 2;
-				$this->Bidinfo->save($bidinfo);
+			//受取完了ボタンが押された時
+			if($bidinfo->trading_status === 1 && $bidinfo->bidder_name !== null){
+				if(isset($_POST['received'])){
+					$bidinfo->trading_status = 2;
+					$this->Bidinfo->save($bidinfo);
+				}
 			}
+		} catch(Exception $e){
+			$bidinfo = null;
 		}
-
 		$this->set(compact('bidinfo'));
 	}
 

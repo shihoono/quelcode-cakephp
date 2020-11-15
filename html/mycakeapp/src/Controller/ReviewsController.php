@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Exception;
 
 /**
  * Reviews Controller
@@ -26,7 +27,11 @@ class ReviewsController extends AuctionController
             'conditions'=>['reviewee_id'=> $id],
             'order'=>['created'=>'desc']]);
 
-        $user = $this->Users->get($id);
+        try{
+            $user = $this->Users->get($id);
+        } catch(Exception $e){
+            $user = null;
+        }
 
         $rate_avg = $this->getAvg($id);
 
@@ -51,27 +56,31 @@ class ReviewsController extends AuctionController
     {
         $review = $this->Reviews->newEntity();
 
-        $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain'=>['Biditems']]);
+        try {
+            $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain'=>['Biditems']]);
 
-        if ($this->request->is('post')) {
-            $review = $this->Reviews->patchEntity($review, $this->request->getData());
-            $review->reviewer_id = $this->Auth->user('id');
-            //ログイン者が落札者
-            if($this->Auth->user('id') === $bidinfo->user_id){
-                $review->reviewee_id = $bidinfo->biditem->user_id;
-            }
-            //ログイン者が出品者
-            if($this->Auth->user('id') === $bidinfo->biditem->user_id){
-                $review->reviewee_id = $bidinfo->user_id;
-            }
-            $review->bidinfo_id = $bidinfo->id;
+            if ($this->request->is('post')) {
+                $review = $this->Reviews->patchEntity($review, $this->request->getData());
+                $review->reviewer_id = $this->Auth->user('id');
+                //ログイン者が落札者
+                if($this->Auth->user('id') === $bidinfo->user_id){
+                    $review->reviewee_id = $bidinfo->biditem->user_id;
+                }
+                //ログイン者が出品者
+                if($this->Auth->user('id') === $bidinfo->biditem->user_id){
+                    $review->reviewee_id = $bidinfo->user_id;
+                }
+                $review->bidinfo_id = $bidinfo->id;
 
-            if ($this->Reviews->save($review)) {
-                $this->Flash->success(__('評価しました。'));
+                if ($this->Reviews->save($review)) {
+                    $this->Flash->success(__('評価しました。'));
 
-                return $this->redirect(['action' => 'add', $bidinfo->id]);
+                    return $this->redirect(['action' => 'add', $bidinfo->id]);
+                }
+                $this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
             }
-            $this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
+        } catch(Exception $e){
+            $bidinfo = null;
         }
         //評価済みかどうか判定
         $reviewed = $this->Reviews->find()->where(['bidinfo_id' => $bidinfo_id, 'reviewer_id' => $this->Auth->user('id')])->count();
