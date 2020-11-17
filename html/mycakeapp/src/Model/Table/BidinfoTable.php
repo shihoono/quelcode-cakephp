@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\BiditemsTable&\Cake\ORM\Association\BelongsTo $Biditems
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\BidmessagesTable&\Cake\ORM\Association\HasMany $Bidmessages
+ * @property \App\Model\Table\ReviewsTable&\Cake\ORM\Association\HasMany $Reviews
  *
  * @method \App\Model\Entity\Bidinfo get($primaryKey, $options = [])
  * @method \App\Model\Entity\Bidinfo newEntity($data = null, array $options = [])
@@ -53,6 +54,9 @@ class BidinfoTable extends Table
         $this->hasMany('Bidmessages', [
             'foreignKey' => 'bidinfo_id',
         ]);
+        $this->hasMany('Reviews', [
+            'foreignKey' => 'bidinfo_id',
+        ]);
     }
 
     /**
@@ -72,6 +76,32 @@ class BidinfoTable extends Table
             ->requirePresence('price', 'create')
             ->notEmptyString('price');
 
+        $validator
+            ->scalar('bidder_name')
+            ->maxLength('bidder_name', 100)
+            ->requirePresence('bidder_name', 'update')
+            ->notEmptyString('bidder_name', 'update')
+            ->allowEmptyString('bidder_name', null, 'create');
+
+        $validator
+            ->scalar('bidder_address')
+            ->maxLength('bidder_address', 255)
+            ->requirePresence('bidder_address', 'update')
+            ->notEmptyString('bidder_address', 'update')
+            ->allowEmptyString('bidder_address', null, 'create');
+        
+        $validator
+            ->scalar('bidder_phone_number')
+            ->maxLength('bidder_phone_number', 13)
+            ->requirePresence('bidder_phone_number', 'update')
+            ->notEmptyString('bidder_phone_number', 'update')
+            ->allowEmptyString('bidder_phone_number', null, 'create');
+        
+        $validator
+            ->integer('trading_status')
+            ->requirePresence('trading_status', 'create')
+            ->notEmptyString('trading_status');
+            
         return $validator;
     }
 
