@@ -1,3 +1,7 @@
+<?php $this->Html->script('countdown', ['block' => true]);?>
+<script>
+    let endtime = JSON.parse('<?= json_encode($biditem->endtime) ?>');
+</script>
 <h2>「<?= $biditem->name ?>」の情報</h2>
 <table class="vertical-table">
 <tr>
@@ -33,6 +37,7 @@
 	<td><?= $biditem->finished ? __('Yes') : __('No'); ?></td>
 </tr>
 </table>
+<div id="countdown"></div>
 <div class="related">
 	<h4><?= __('落札情報') ?></h4>
 	<?php if (!empty($biditem->bidinfo)): ?>
