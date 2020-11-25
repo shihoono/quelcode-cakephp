@@ -10,7 +10,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const hours = Math.floor(remainingTime / 1000 / 60 / 60) % 24;
     const days = Math.floor(remainingTime / 1000 / 60 / 60 / 24);
     const count = [days, hours, min, sec]; 
-
+    
+    if(remainingTime > 0){
+      return count;
+    } else {
+      document.getElementById('countdown').textContent = 'オークションは終了しました';
+    }
   };
 
   perSecond = () => {
