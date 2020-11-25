@@ -1,6 +1,6 @@
 <?php $this->Html->script('countdown', ['block' => true]);?>
 <script>
-	let endtime = JSON.parse('<?= json_encode($biditem->endtime) ?>');
+	const endTimeJson = '<?= json_encode($biditem->endtime) ?>';
 </script>
 <h2>「<?= $biditem->name ?>」の情報</h2>
 <table class="vertical-table">

@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
 
-  const endTime = new Date(endtime);
+  const endTime = new Date(JSON.parse(endTimeJson));
 
   countdown = () => {
     const now = new Date();
@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const hours = Math.floor(remainingTime / 1000 / 60 / 60) % 24;
     const days = Math.floor(remainingTime / 1000 / 60 / 60 / 24);
     const count = [days, hours, min, sec]; 
-
+    
     if(remainingTime > 0){
       return count;
     } else {
