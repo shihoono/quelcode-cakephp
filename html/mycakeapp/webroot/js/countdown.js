@@ -18,17 +18,17 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const perSecond = () => {
-    setTimeout(() => {
-      update();
-    }, 1000);
-  };
-  
   const update = () => {
     const counter = countdown();
     const showCountdown = '残り' + counter[0] + '日' + counter[1] + '時間' + counter[2] + '分' + counter[3] + '秒';
     document.getElementById('countdown').textContent = showCountdown;
     perSecond();
+  };
+
+  const perSecond = () => {
+    setTimeout(() => {
+      update();
+    }, 1000);
   };
   
   update();
