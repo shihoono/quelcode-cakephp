@@ -11,18 +11,18 @@ window.addEventListener('DOMContentLoaded', () => {
     const days = Math.floor(remainingTime / 1000 / 60 / 60 / 24);
     const count = [days, hours, min, sec]; 
 
-    if(remainingTime > 0){
       return count;
-    } else {
-      document.getElementById('countdown').textContent = 'オークションは終了しました';
-    }
   };
 
   const update = () => {
     const counter = countdown();
-    const showCountdown = '残り' + counter[0] + '日' + counter[1] + '時間' + counter[2] + '分' + counter[3] + '秒';
-    document.getElementById('countdown').textContent = showCountdown;
-    perSecond();
+    if(counter[0] > 0 || counter[1] > 0 || counter[2] > 0 || counter[3] > 0){
+      const showCountdown = '残り' + counter[0] + '日' + counter[1] + '時間' + counter[2] + '分' + counter[3] + '秒';
+      document.getElementById('countdown').textContent = showCountdown;
+      perSecond();
+    } else {
+      document.getElementById('countdown').textContent = 'オークションは終了しました';
+    }
   };
 
   const perSecond = () => {
