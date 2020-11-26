@@ -35,8 +35,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const perSecond = () => {
     setTimeout(() => {
-      update();
       countUp();
+      update();
     }, 1000);
   };
   
