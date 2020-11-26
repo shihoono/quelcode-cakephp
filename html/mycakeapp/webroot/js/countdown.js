@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const update = () => {
     const counter = getCounter();
-    if(counter[0] > 0 || counter[1] > 0 || counter[2] > 0 || counter[3] > 0){
+    if(counter){
       const showCountdown = '残り' + counter[0] + '日' + counter[1] + '時間' + counter[2] + '分' + counter[3] + '秒';
       document.getElementById('countdown').textContent = showCountdown;
       perSecond();
