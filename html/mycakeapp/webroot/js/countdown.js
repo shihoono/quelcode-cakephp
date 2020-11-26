@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
     currentTimeCount += 1000;
   }
 
-  const countdown = () => {
+  const getCounter = () => {
     countUp();
     const remainingTime = endTime - currentTimeCount;
     const sec = Math.floor(remainingTime / 1000 % 60);
@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   const update = () => {
-    const counter = countdown();
+    const counter = getCounter();
     if(counter[0] > 0 || counter[1] > 0 || counter[2] > 0 || counter[3] > 0){
       const showCountdown = '残り' + counter[0] + '日' + counter[1] + '時間' + counter[2] + '分' + counter[3] + '秒';
       document.getElementById('countdown').textContent = showCountdown;
