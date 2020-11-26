@@ -1,6 +1,9 @@
+<?php use Cake\I18n\Time; ?>
 <?php $this->Html->script('countdown', ['block' => true]);?>
+<?php $time = Time::now(); ?>	
 <script>
 	const endTimeJson = '<?= json_encode($biditem->endtime) ?>';
+	const nowTimeJson = '<?= json_encode($time) ?>';
 </script>
 <h2>「<?= $biditem->name ?>」の情報</h2>
 <table class="vertical-table">
