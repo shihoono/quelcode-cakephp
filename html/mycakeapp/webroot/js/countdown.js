@@ -1,17 +1,23 @@
 window.addEventListener('DOMContentLoaded', () => {
 
   const endTime = new Date(JSON.parse(endTimeJson));
+  const now = new Date(JSON.parse(nowTimeJson));
+  let currentTimeCount = now.getTime();
+
+  const countUp = () => {
+    currentTimeCount += 1000;
+  }
 
   const countdown = () => {
-    const now = new Date();
-    const remainingTime = endTime - now;
+    countUp();
+    const remainingTime = endTime - currentTimeCount;
     const sec = Math.floor(remainingTime / 1000 % 60);
     const min = Math.floor(remainingTime / 1000 / 60) % 60;
     const hours = Math.floor(remainingTime / 1000 / 60 / 60) % 24;
     const days = Math.floor(remainingTime / 1000 / 60 / 60 / 24);
     const count = [days, hours, min, sec]; 
-
-      return count;
+    
+    return count;
   };
 
   const update = () => {
