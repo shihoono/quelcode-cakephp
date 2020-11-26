@@ -27,10 +27,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const counter = getCounter();
     if(counter){
       const showCountdown = '残り' + counter[0] + '日' + counter[1] + '時間' + counter[2] + '分' + counter[3] + '秒';
-      document.getElementById('countdown').textContent = showCountdown;
+      document.getElementById('countdownTimerDisplay').textContent = showCountdown;
       perSecond();
     } else {
-      document.getElementById('countdown').textContent = 'オークションは終了しました';
+      document.getElementById('countdownTimerDisplay').textContent = 'オークションは終了しました';
     }
   };
 

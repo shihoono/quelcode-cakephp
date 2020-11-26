@@ -40,7 +40,7 @@
 </table>
 <div class="related">
 	<h4>終了まで</h4>
-	<p id="countdown"></p>
+	<p id="countdownTimerDisplay"></p>
 </div> 
 <div class="related">
 	<h4><?= __('落札情報') ?></h4>
