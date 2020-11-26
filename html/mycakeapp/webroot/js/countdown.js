@@ -11,6 +11,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const getCounter = () => {
     countUp();
     const remainingTime = endTime - currentTimeCount;
+    if (remainingTime < 0) {
+      return null;
+    }
     const sec = Math.floor(remainingTime / 1000 % 60);
     const min = Math.floor(remainingTime / 1000 / 60) % 60;
     const hours = Math.floor(remainingTime / 1000 / 60 / 60) % 24;
