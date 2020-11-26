@@ -9,7 +9,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   const getCounter = () => {
-    countUp();
     const remainingTime = endTime - currentTimeCount;
     if (remainingTime < 0) {
       return null;
@@ -37,6 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const perSecond = () => {
     setTimeout(() => {
       update();
+      countUp();
     }, 1000);
   };
   
